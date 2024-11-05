@@ -1,4 +1,4 @@
-# spring-data
+# spring-elastic search
 # Table of Contents
 - [spring data redis]()
 - [spring data jpa]

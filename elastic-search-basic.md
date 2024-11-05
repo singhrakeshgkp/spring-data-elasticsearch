@@ -1,13 +1,14 @@
 # Table of Contents
 - [Elastic Search](#elastic-search)
   - [Elastic Search Architecture](#elastic-search-architecture)
+    - [Elastic Search Cluster](#elastic-search-cluster)
 
 
 
-## Elastic Search
+# Elastic Search
 - Elasticsearch is a search engine and analytics tool that stores and indexes data for fast searching and analysis.
 
-### Elastic Search Architecture
+## Elastic Search Architecture
 - Inverted indices are heart of elastic search
   - An elastic search index is made up of shard's
   - A Shard is a standalone Lucence instance.
@@ -46,5 +47,9 @@
         <td>1</td>
       </tr>
     </table>
-
+### Elastic Search Cluster
+- Following digram is representation of cluster with two primary shards 0 and 1 and 2 replica shards per primary shards.
+  
+- Replica(R) shards do only read operation and only copy data from their primary shard........
+- Primary(P) shards do readh/write operation..........
   

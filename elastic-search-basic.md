@@ -2,6 +2,8 @@
 - [Elastic Search](#elastic-search)
   - [Elastic Search Architecture](#elastic-search-architecture)
     - [Elastic Search Cluster](#elastic-search-cluster)
+    - [Elastic Search Index](#elastic-search-index)
+    - [How Read/Write Operations Happens](#how-read/write-operations-happens)
 
 
 
@@ -49,7 +51,20 @@
     </table>
 ### Elastic Search Cluster
 - Following digram is representation of cluster with two primary shards 0 and 1 and 2 replica shards per primary shards.
-  
+ <img src="/es-cluster.png" width="600"/>
+ 
 - Replica(R) shards do only read operation and only copy data from their primary shard........
 - Primary(P) shards do readh/write operation..........
-  
+
+### Elastic Search Index
+- if u want more data in index, u have to add more shards.
+ <img src="/es-index.png" width="600"/>
+
+### How Read/Write Operations Happens
+- **Write** -->Lets say doc id 20 i want to write. so here doc id 20 is hashed to shard 5 of your ES index. Primary shard 5 will write the data from doc id 20. Replicas shard will copy the data from shard 5
+- **Read**-->
+   - Get request for doc id 20 comes in
+   - Hash function says doc id 20 is in shard id 5
+   - any shard with id 5(primary or replica) can return the data for document id 20. Note if primary shard with id 5 is busy and replica shard with id 5 can return the data
+
+    

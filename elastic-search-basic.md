@@ -5,6 +5,7 @@
     - [Elastic Search Index](#elastic-search-index)
     - [How Read/Write Operations Happens](#how-read/write-operations-happens)
     - [Fault Tolerance](#fault-tolerance)
+ - [Additional Info](#additional-info)
 
 
 
@@ -71,3 +72,8 @@
 
 ### Fault Tolerance
 - If any node goes down and primary shard was there on that node, a replica shard (with same id) will get promoted to primary so u can continue to write data.
+
+## Additional info
+- If your application is more read operation you should define multiple  replicas shards.
+- If you are using put/post excessively in your application you should have multiple primary shard.
+- Once u created your index with 2 primary and 2 replicas shard setup and want to change you can not do that for that u need to create new index and spinup new node

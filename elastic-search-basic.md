@@ -2,6 +2,10 @@
 - [Elastic Search](#elastic-search)
   - [Elastic Search Architecture](#elastic-search-architecture)
     - [Elastic Search Cluster](#elastic-search-cluster)
+    - [Elastic Search Index](#elastic-search-index)
+    - [How Read/Write Operations Happens](#how-read/write-operations-happens)
+    - [Fault Tolerance](#fault-tolerance)
+ - [Additional Info](#additional-info)
 
 
 
@@ -49,7 +53,27 @@
     </table>
 ### Elastic Search Cluster
 - Following digram is representation of cluster with two primary shards 0 and 1 and 2 replica shards per primary shards.
-  
-- Replica(R) shards do only read operation and only copy data from their primary shard........
-- Primary(P) shards do readh/write operation..........
-  
+ <img src="/es-cluster.png" width="600"/>
+ 
+- Replica(R) shards do only read operation and only copy data from their primary shard id
+- Primary(P) shards do readh/write operations for doc_ids that are hashed to them.
+- Nodes are physically independent of each other.
+
+### Elastic Search Index
+- if u want more data in index, u have to add more shards.
+ <img src="/es-index.png" width="600"/>
+
+### How Read/Write Operations Happens
+- **Write** -->Lets say doc id 20 i want to write. so here doc id 20 is hashed to shard 5 of your ES index. Primary shard 5 will write the data from doc id 20. Replicas shard will copy the data from shard 5
+- **Read**-->
+   - Get request for doc id 20 comes in
+   - Hash function says doc id 20 is in shard id 5
+   - any shard with id 5(primary or replica) can return the data for document id 20. Note if primary shard with id 5 is busy and replica shard with id 5 can return the data
+
+### Fault Tolerance
+- If any node goes down and primary shard was there on that node, a replica shard (with same id) will get promoted to primary so u can continue to write data.
+
+## Additional info
+- If your application is more read operation you should define multiple  replicas shards.
+- If you are using put/post excessively in your application you should have multiple primary shard.
+- Once u created your index with 2 primary and 2 replicas shard setup and want to change you can not do that for that u need to create new index and spinup new node
